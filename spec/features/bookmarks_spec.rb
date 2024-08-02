@@ -12,7 +12,9 @@ RSpec.describe "Bookmarks" do
 
   describe "when bookmark counter is not rendered" do
     before do
-      allow(CatalogController).to receive(:render_bookmarks_control?).and_return(false)
+      CatalogController.configure_blacklight do |config|
+        config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: false)
+      end
     end
 
     it 'adds bookmark without raising an alert', :js do
